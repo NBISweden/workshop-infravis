@@ -1,0 +1,47 @@
+---
+pagetitle: "NBIS Workshop | InfraVis plotting with R"
+subtitle: ""
+toc: false
+date: ""
+sidebar: false
+format:
+  html:
+    css: "assets/css/home.css"
+    number-sections: false
+    title-block-banner: false
+    page-layout: full
+    anchor-sections: false
+execute:
+  freeze: false
+---
+
+::: {.home-container}
+::: {.home-grid-parent}
+::: {.home-grid-child-left}
+
+### NBIS Workshop
+## InfraVis plotting with R
+
+::: {.large}
+
+ - Using the language of graphics: ggplot2
+ - Basic and advanced plotting in ggplot2
+ - Single-cell data visualizations with Seurat
+ - Quarto notebooks and reports
+ - Dynamic plotting with quarto
+ - Interactive web apps with Shiny
+
+:::
+
+::: small
+Updated: {{< meta current_date >}}  at {{< meta current_time >}} .
+:::
+
+:::
+:::{.home-grid-child-right}
+
+![](assets/images/hero.webp){.nolightbox}
+
+:::
+:::
+:::

@@ -1,0 +1,32 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.~*
+.vscode/
+*rds
+
+# From specky
+
+**/.Rhistory
+*.Rproj*
+*.code-workspace
+**/.ipynb_checkpoints
+/.luarc.json
+/.quarto/
+.DS_Store
+**/*_cache/
+**/__pycache__
+todo.txt
+topics/**/*_files
+_freeze
+docs
+r-plots
+
+# Release directories 
+test_files/
+gh-pages-branch/
+
+
+# Admin for particular release
+#2109_Admin/
