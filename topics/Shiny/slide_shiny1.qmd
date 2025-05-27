@@ -31,8 +31,13 @@ library(shiny)
 * [Code Structure](#app-organization)
 * [App execution](#app-execution)
 * [UI](#ui)
-  * [Dynamic UI](#dynamic-ui)
 * [Server](#server)
+* [Reactivity](#reactivity)
+* [Error Validation](#error-validation)
+* [Download](#download-data)
+* [Themes](#theming)
+* [Deployment](#deployment)
+* [Interactive documents](#interactive-documents-quarto)
 
 ## 
 
@@ -586,31 +591,6 @@ server=function(input, output) {
 
 ```
 
-## Rendering UI
-
-```{shinylive-r}
-#| standalone: true
-#| components: [editor, viewer]
-
-shinyApp(
-ui=fluidPage(
-  sliderInput("persons",label="Select number of persons", value=1, min=1,max=4),
-  uiOutput("ui")
-),
-
-server=function(input, output) {
-  output$ui <- renderUI({
-    lapply(1:input$persons, function(i) {
-         div(
-           textInput(paste0("name",i),"Enter name:",paste0("Person ",i)),
-           textInput(paste0("tel",i),"Enter phone number:",value = "0773921562"),
-           hr()
-         )
-    })
-  })
-})
-```
-
 ## Server
 
 * `Server` is a function that assembles your `input` into `output` using R based code.
@@ -665,6 +645,761 @@ server=function(input, output) {
 ![](../../assets/images/shiny-input2.png){width="60%" fig-align="center"}
 
 ::: 
+
+## Reactivity
+
+- Code doesn't always run line-by-line (Non-linear execution)
+- Code executes when dependencies change
+
+![](assets/reactivity/reactlog.png){width="50%"}  
+[[reactlog](https://rstudio.github.io/reactlog/index.html)]{.smaller}
+
+## Reactives
+
+Functions with reactive context
+
+- `reactive()`: Defines an expression
+- `reactiveVal()`: Defines single value
+- `reactiveValues()`: Defines a list of values
+
+Regular function `fn <- function()`: Runs wherever it is is used  
+Reactive function `fn <- reactive()`: Runs only when input changes
+
+## Reactive dynamics
+
+```{shinylive-r}
+#| standalone: true
+#| components: [editor, viewer]
+shinyApp(
+  ui=fluidPage(
+    numericInput("num_input",label="Observations",value=50),
+    textOutput("text_output")),
+  server=function(input,output) {
+    output$text_output <- renderText({
+        mean(rnorm(input$num_input))
+    })
+  })
+```
+
+:::: {.r-stack}
+::: {.fragment}
+![](assets/reactivity/rg-1/1.jpg)
+
+:::
+::: {.fragment}
+
+![](assets/reactivity/rg-1/2.jpg)
+
+:::
+::: {.fragment}
+
+![](assets/reactivity/rg-1/3.jpg)
+
+:::
+::: {.fragment}
+
+![](assets/reactivity/rg-1/4.jpg)
+
+:::
+::::
+
+## Reactive dynamics
+
+```{shinylive-r}
+#| standalone: true
+#| components: [editor, viewer]
+shinyApp(
+  ui=fluidPage(
+    numericInput("num_input",label="Observations",value=50),
+    textOutput("text_output1"), textOutput("text_output2")),
+  server=function(input,output) {
+    output$text_output1 <- renderText({
+      mean(rnorm(input$num_input))
+    })
+    output$text_output2 <- renderText({
+      mean(rnorm(input$num_input))
+    })
+  })
+```
+
+:::: {.r-stack}
+::: {.fragment}
+![](assets/reactivity/rg-2/1.jpg)
+
+:::
+::: {.fragment}
+
+![](assets/reactivity/rg-2/2.jpg)
+
+:::
+::: {.fragment}
+
+![](assets/reactivity/rg-2/3.jpg)
+
+:::
+::: {.fragment}
+
+![](assets/reactivity/rg-2/4.jpg)
+
+:::
+
+::: {.fragment}
+
+![](assets/reactivity/rg-2/5.jpg)
+
+:::
+
+::: {.fragment}
+
+![](assets/reactivity/rg-2/6.jpg)
+
+:::
+
+::: {.fragment}
+
+![](assets/reactivity/rg-2/7.jpg)
+
+:::
+
+::: {.fragment}
+
+![](assets/reactivity/rg-2/8.jpg)
+
+:::
+
+::::
+
+## Reactive dynamics
+
+```{shinylive-r}
+#| standalone: true
+#| components: [editor, viewer]
+shinyApp(
+  ui=fluidPage(
+    numericInput("num_input",label="Observations",value=50),
+    textOutput("text_output1"), textOutput("text_output2")),
+  server=function(input,output) {
+    rand <- function(x) rnorm(x)
+    output$text_output1 <- renderText({
+      mean(rand(input$num_input))
+    })
+    output$text_output2 <- renderText({
+      mean(rand(input$num_input))
+    })
+  })
+```
+
+![](assets/reactivity/rg-2/8.jpg)
+
+## Reactive dynamics
+
+```{shinylive-r}
+#| standalone: true
+#| components: [editor, viewer]
+shinyApp(
+  ui=fluidPage(
+    numericInput("num_input",label="Observations",value=50),
+    textOutput("text_output1"), textOutput("text_output2")
+    ),
+  server=function(input,output) {
+    rand <- reactive({ rnorm(input$num_input) })
+    output$text_output1 <- renderText({
+      mean(rand())
+    })
+    output$text_output2 <- renderText({
+      mean(rand())
+    })
+  })
+```
+
+:::: {.r-stack}
+::: {.fragment}
+![](assets/reactivity/rg-3/1.jpg)
+:::
+
+::: {.fragment}
+![](assets/reactivity/rg-3/2.jpg)
+:::
+
+::: {.fragment}
+![](assets/reactivity/rg-3/3.jpg)
+:::
+
+::: {.fragment}
+![](assets/reactivity/rg-3/4.jpg)
+:::
+
+::: {.fragment}
+![](assets/reactivity/rg-3/5.jpg)
+:::
+
+::: {.fragment}
+![](assets/reactivity/rg-3/6.jpg)
+:::
+
+::: {.fragment}
+![](assets/reactivity/rg-3/7.jpg)
+:::
+
+::: {.fragment}
+![](assets/reactivity/rg-3/8.jpg)
+:::
+
+::: {.fragment}
+![](assets/reactivity/rg-3/9.jpg)
+:::
+
+::: {.fragment}
+![](assets/reactivity/rg-3/10.jpg)
+:::
+
+::: {.fragment}
+![](assets/reactivity/rg-3/11.jpg)
+:::
+
+::: {.fragment}
+![](assets/reactivity/rg-3/12.jpg)
+:::
+
+::::
+
+::: {.notes}
+Reactive functions can be use to share output from a common source. They can be used to reduce computation for demanding functions. Reactive values cannot be accessed from outside the reactive environment.
+
+Try changing the reactive function
+
+`rand <- reactive({ rnorm(input$num_input) })`
+
+to a regular function
+
+`rand <- function(){ rnorm(input$num_input) }`
+
+Saving a reactlog,
+
+```{r}
+#| eval: false
+# reset log
+reactlogReset()
+# run the app and exit
+# save react log as text
+dput(shiny::reactlog(), file = "assets/reactlog-reactivity-3.txt")
+# open and visualize
+"assets/reactlog-reactivity-3.txt" |>
+  dget() |>
+  reactlog::reactlog_show()
+```
+
+:::
+
+## Reactive context
+
+Reactive values cannot be accessed outside a reactive context
+
+:::: {.columns}
+::: {.column width="55%"}
+```{shinylive-r}
+#| standalone: true
+#| components: [editor, viewer]
+shinyApp(
+  ui = fluidPage(
+    numericInput("num", "Enter number",
+                 value = 1),
+    textOutput("result")
+  ),
+  server = function(input, output) {
+    val = input$num^2
+    output$result <- renderText({
+      paste("Squared number is:", val)
+    })
+  }
+)
+```
+:::
+::: {.column width="45%"}
+![](assets/reactive-context-error.jpg)
+:::
+::::
+
+## Reactive values
+
+- `reactVal()` `reactValues()`
+- Store reactive values that can be accessed from any reactive context
+
+```{shinylive-r}
+#| standalone: true
+#| components: [editor, viewer]
+shinyApp(
+  ui = fluidPage(
+    actionButton("add","Add"),
+    actionButton("subtract","Subtract"),
+    textOutput("counter")
+  ),
+  server = function(input, output) {
+    reactive_values <- reactiveValues(counter = 0) 
+    
+    observeEvent(input$add, {
+      reactive_values$counter <- reactive_values$counter + 1
+    }) 
+    observeEvent(input$subtract, {
+      reactive_values$counter <- reactive_values$counter - 1
+    }) 
+  
+    output$counter <- renderText({
+      reactive_values$counter
+    })
+  }
+)
+```
+
+## Controlling reactivity using action buttons
+
+```{shinylive-r}
+#| standalone: true
+#| components: [editor, viewer]
+shinyApp(
+ui = fluidPage(
+  h3("Temperature Converter"),
+  numericInput("celsius", "Degrees Celsius:", value = 0),
+  actionButton("btn_go", "Go!"),
+  textOutput("fahrenheit")
+),
+
+server = function(input, output) {
+  evr <- eventReactive(input$btn_go, {
+    paste(input$celsius, "°C is ", (input$celsius * 9/5) + 32, " °F")
+  })
+  
+  output$fahrenheit <- renderText({
+    evr()
+  })
+  
+  #output$fahrenheit <- renderText({
+  #    paste(input$celsius, "°C is ", (input$celsius * 9/5) + 32, " °F")
+  #  }) |>
+  #  bindEvent(input$btn_go)
+})
+```
+
+## Error validation
+
+* Shiny returns an error with missing or incorrect values
+
+:::: {.fragment} 
+
+::: {.column width="65%"}
+```{r,eval=FALSE}
+shinyApp(
+ui=fluidPage(
+  selectInput("data_input",label="Select data",
+              choices=c("","mtcars","faithful","iris")),
+  tableOutput("table_output")
+),
+server=function(input, output) {
+  getdata <- reactive({ get(input$data_input,'package:datasets') })
+  output$table_output <- renderTable({head(getdata())})
+})
+```
+
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="30%"}
+
+![](../../assets/images/val1.png)
+
+:::
+
+::::
+
+:::: {.fragment}
+
+* Errors can be handled in a controlled manner
+
+::::
+
+## Error validation
+
+::: {.incremental}
+
+* `validate()` can be used to check input
+* `validate()` using `need()`
+
+:::
+
+:::: {.fragment}
+
+::: {.column width="65%"}
+
+```{r, eval= FALSE}
+shinyApp(
+ui=fluidPage(
+  selectInput("data_input",label="Select data",
+              choices=c("","mtcars","faithful","iris")),
+  tableOutput("table_output")
+),
+server=function(input, output) {
+  getdata <- reactive({ 
+  validate(need(try(input$data_input),"Please select a data set"))
+    get(input$data_input,'package:datasets') 
+    })
+  output$table_output <- renderTable({head(getdata())})
+})
+```
+
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="30%"}
+
+![](../../assets/images/val2.png)
+
+:::
+
+::::
+
+## Download • Data
+
+* Add button and `downloadHandler()` function
+
+```{r, eval=FALSE}
+shinyApp(
+ui=fluidPage(
+  selectInput("data_input",label="Select data",
+              choices=c("mtcars","faithful","iris")),
+  textOutput("text_output"),
+  downloadButton("button_download","Download")
+),
+server=function(input, output) {
+  getdata <- reactive({ get(input$data_input, 'package:datasets') })
+  output$text_output <- renderText(paste0("Selected dataset: ",input$data_input))
+  
+  output$button_download <- downloadHandler(
+  filename = function() {
+     paste0(input$data_input,".csv")
+   },
+  content = function(file) {
+     write.csv(getdata(),file,row.names=FALSE,quote=F)
+   })
+})
+```
+
+* Run in system browser if Rstudio browser doesn't work
+
+## Download • Plots
+
+```{r, eval=FALSE}
+shinyApp(
+ui=fluidPage(
+  selectInput("data_input",label="Select data",
+              choices=c("mtcars","faithful","iris")),
+  textOutput("text_output"),
+  plotOutput("plot_output",width="400px"),
+  downloadButton("button_download", "Download")
+),
+server=function(input, output) {
+  getdata <- reactive({ get(input$data_input, 'package:datasets') })
+  output$text_output <- renderText(paste0("Selected dataset: ",input$data_input))
+  output$plot_output <- renderPlot({hist(getdata()[, 1])})
+  
+output$button_download <- downloadHandler(
+  filename = function() {
+    paste0(input$data_input,".png")
+  },
+  content = function(file) {
+    png(file)
+    hist(getdata()[, 1])
+    dev.off()
+  })
+})
+```
+
+
+* Run in system browser if Rstudio browser doesn't work
+* See usage of download buttons
+
+## Theming
+
+:::: {.columns}
+::: {.column width="40%"}
+- Use **shinythemes**
+
+```{r}
+#| eval: false
+library(shinythemes)
+fluidPage(theme = shinytheme("cerulean"))
+```
+
+- Live theme selector
+
+```{r}
+#| eval: false
+library(shinythemes)
+fluidPage(theme = shinythemes::themeSelector())
+```
+
+[[shinythemes](https://rstudio.github.io/shinythemes/)]{.smaller}
+:::
+::: {.column width="60%"}
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 650
+webr::install("shinythemes")
+
+shinyApp(
+  ui = fluidPage(
+    shinythemes::themeSelector(),
+    sidebarPanel(
+      textInput("txt", "Text input:", "text here"),
+      sliderInput("slider", "Slider input:", 1, 100, 30),
+      actionButton("action", "Button"),
+      actionButton("action2", "Button2", class = "btn-primary")
+    ),
+    mainPanel(
+      tabsetPanel(
+        tabPanel("Tab 1"),
+        tabPanel("Tab 2")
+      )
+    )
+  ),
+  server = function(input, output) {}
+)
+```
+:::
+::::
+
+## Theming
+
+- Use **bslib**
+
+```{r}
+#| eval: false
+library(bslib)
+ui <- page_fluid(
+  theme = bs_theme(version = 5)
+)
+```
+
+. . .
+
+- Live theme selector
+
+```{r}
+#| eval: false
+library(bslib)
+bs_theme_preview()
+```
+
+[[bslib](https://rstudio.github.io/bslib/), [Bootswatch](https://bootswatch.com/)]{.smaller}
+
+## Theming using custom CSS
+
+- Insert in the head
+
+```{r}
+#| eval: false
+ui <- fluidPage(
+  tags$head(
+    tags$style(HTML("
+      @import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+      h2 {
+        font-family: 'Yusei Magic', sans-serif;
+      }"))
+  ))
+```
+
+. . .
+
+- Add styles directly
+
+```{r}
+#| eval: false
+ui <- fluidPage(h2("Old Faithful Geyser Data", style = "font-size: 2em;"))
+```
+
+. . .
+
+- Load custom CSS file placed in `www/`
+
+```{r}
+#| eval: false
+ui <- fluidPage(
+  tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css"))
+)
+```
+
+[[CSS styling](https://shiny.posit.co/r/articles/build/css/)]{.smaller}
+
+
+## Deployment
+
+- R scripts
+  - GitHub
+  - R Package
+
+. . .
+
+- Container (Docker ...)
+
+. . .
+
+- Hosting
+  - Shinyapps.io
+  - Shiny Server (Free)
+  - Shiny Server Pro
+  - [SciLifeLab Serve](https://serve.scilifelab.se/apps/)
+
+. . .
+
+- Automatically deploying to shinyapps.io
+
+## Shinyapps.io
+
+```{r}
+#| eval: false
+library(rsconnect)
+rsconnect::setAccountInfo(name="username", token="HDFGT46YF7TDT6474G47", secret="hdgTDF5FStgdkpJ")
+deployApp(appName="name")
+```
+
+. . .
+
+[[Shiny apps user guide](https://docs.rstudio.com/shinyapps.io/index.html), [Shiny server guide](https://docs.rstudio.com/shiny-server/)]{.smaller}
+
+## Interactive documents • Quarto
+
+````
+---
+title: "Interactive scatterplot"
+format: html
+server: shiny
+---
+
+```{{r}}
+library(shiny)
+library(ggplot2)
+
+selectInput("x_var", "X-axis Variable:", choices=names(mtcars), selected = "hp"),
+selectInput("y_var", "Y-axis Variable:", choices=names(mtcars), selected = "mpg"),
+plotOutput("plot")
+```
+
+```{{r}}
+#| context: server
+output$plot <- renderPlot({
+  ggplot(mtcars, aes_string(x = input$x_var, y = input$y_var)) +
+    geom_point() +
+    labs(title = "Interactive mtcars scatterplot", 
+         x = input$x_var, 
+         y = input$y_var)
+})
+```
+````
+
+## Interactive documents • Rmarkdown
+
+- Shiny can run in RMarkdown documents. Set YAML `runtime: shiny`.  
+
+````        
+---
+title: Interactive document
+output: html_document
+runtime: shiny
+---
+````
+
+- Shiny widgets can be included directly  
+
+````
+```{{r}}
+selectInput('n_breaks',label='Number of bins:',choices=c(10,20,35,50),selected=20)
+```
+````
+
+## Interactive documents
+
+- Whole shiny apps can be included directly  
+
+```{{r}}
+shinyApp(
+  ui=fluidPage(),
+  server=function(input,output) {}
+)
+```
+
+. . .
+
+- Hosted shiny apps can be embedded using `<iframe>`  
+
+```         
+<iframe src="https://user.shinyapps.io/app"></iframe>
+```
+
+## SciLifeLab Serve and RShiny NBIS
+
+:::{.column width="50%"}
+![](../../assets/images/scilifelab_serve.png)
+:::
+
+:::{.column width="50%"}
+![](../../assets/images/nbis_rshiny.png)
+:::
+
+## Other topics
+
+- [Extended task](https://rstudio.github.io/shiny/reference/ExtendedTask.html)
+- [Shiny unit tests](https://shiny.posit.co/r/articles/improve/testing-overview/)
+- [Applications of action buttons](https://shiny.posit.co/r/articles/build/action-buttons/)  
+- [Progress indicators](https://shiny.posit.co/r/articles/build/progress/)  
+- [Shinylive](https://shinylive.io)
+- [ShinyUIEditor](https://rstudio.github.io/shinyuieditor/)
+- ...
+
+## Extensions
+
+- [Naxstats](https://github.com/nanxstats/awesome-shiny-extensions): Repo collection of shiny extensions
+- [bslib](https://rstudio.github.io/bslib): Bootswatch themes for shiny
+- [shinyurl](https://github.com/aoles/shinyURL): using URLs to recreate state of an app
+- [shinypod](https://github.com/ijlyttle/shinypod): Reusable modules
+- [shinyjs](https://deanattali.com/shinyjs/): Custom javascript functionality
+- [shinyWidgets](https://github.com/dreamRs/shinyWidgets): Bootstrap 3 custom widgets
+- [shinyBS](https://github.com/ebailey78/shinyBS): Bootstrap 3 widgets
+- [shinymanager](https://datastorm-open.github.io/shinymanager/): Authentication for shiny apps
+- ...
+
+## Learning & community
+
+:::: {.columns}
+::: {.column width="50%"}
+**Documentation**
+
+- [Posit Shiny home](https://shiny.posit.co/) 
+- [Posit Shiny articles](https://shiny.posit.co/r/articles/)
+
+**Books**
+
+![](assets/mastering-shiny.png){height="250px"} ![](https://engineering-shiny.org/img/engineering-shiny.jpeg){height="250px"}
+
+- [Mastering Shiny Book](https://mastering-shiny.org/index.html)
+- [Engineering Shiny Apps](https://engineering-shiny.org/index.html)
+- [Shiny Interfaces](https://unleash-shiny.rinterface.com/index.html)
+- [Mastering shiny solutions](https://mastering-shiny-solutions.org/)
+:::
+::: {.column width="50%"}
+**Conferences**
+
+- [Appsilon: ShinyConf](https://www.shinyconf.com/)
+- [Jumping Rivers: Shiny in Production](https://shiny-in-production.jumpingrivers.com/)
+
+**Blogs & Podcasts**
+
+- [Posit Shiny Blog](https://shiny.posit.co/blog/)
+- [Shiny Developer Series](https://shinydevseries.com/)
+:::
+::::
 
 ## {background-image="../../assets/images/precourse/data_viz_adv_2.jpeg"}
 
