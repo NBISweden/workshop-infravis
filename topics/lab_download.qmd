@@ -4,8 +4,9 @@ subtitle: "InfraVis plotting with R"
 author: "Lokesh Mano"
 format: 
     html: 
-        code-tools: true
+        code-tools: false
         font-size: 10
+        number-sections: false
 code-annotations: hover
 ---
 ```{r,include=FALSE}

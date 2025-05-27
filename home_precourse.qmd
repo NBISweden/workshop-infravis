@@ -44,7 +44,7 @@ To make sure that the installations went well, we will try to make a quick plot 
 :::{.callout-caution icon="false"}
 ### {{< fa solid file-arrow-down >}} Download course files
 
-Please download all the necessary files from [here](https://nbisweden.github.io/workshop-data-visualization-r/2505/topics/lab_download.html) and make sure that the directory tree looks similar to the one displayed in that page.
+Please download all the necessary files from [here](topics/lab_download.html) and make sure that the directory tree looks similar to the one displayed in that page.
 
 :::
 
