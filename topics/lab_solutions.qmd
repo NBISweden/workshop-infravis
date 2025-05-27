@@ -1,6 +1,6 @@
 ---
 title: "Solutions"
-subtitle: "Workshop on Advanced Data Visualization"
+subtitle: "InfraVis plotting with R"
 author: "Lokesh Mano"
 format: 
     html: 

@@ -1,6 +1,6 @@
 ---
 title: "Download data"
-subtitle: "Workshop on Advanced Data Visualization"
+subtitle: "InfraVis plotting with R"
 author: "Lokesh Mano"
 format: 
     html: 
@@ -22,9 +22,9 @@ The following data will be used in the used for the exercises in this course. Th
 You can download all the files together [here](https://github.com/NBISweden/workshop-data-visualization-r/raw/main/data/data.zip).
 Make a directory called `data` and `unzip` in that directory!
 
-If `workshop_on_advanced_data_visualization` is the current working directory, the directory tree should look like this:
+If `workshop_infravis` is the current working directory, the directory tree should look like this:
 
-* <span style="color:blue">workshop_on_advanced_data_visualization</span>
+* <span style="color:blue">workshop_infravis</span>
   + <span style="color:blue">data</span>
     + 2024_final_scores.tsv
     + arch_newick.txt
