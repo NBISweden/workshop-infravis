@@ -58,7 +58,7 @@ p <- ggplot(iris)+
 p
 p + scale_color_manual(name="New",
         values=c("blue","green","red")) +
-scale_x_continuous(name="Sepal Length",
+    scale_x_continuous(name="Sepal Length",
         breaks=c(3,3.5,4,4.5,5),limits=c(3,5))
 ```
 
