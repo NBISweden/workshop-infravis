@@ -41,16 +41,6 @@ library(kableExtra)
 
 ![](../../assets/images/inst_check.png){ width="50%" fig-align="center"}
 
-. . .
-
-:::{.small}
-
-* Coffee breaks (Morning and afternoon fika)
-* Webpage structure
-* Plots from drop-down
-* Times mentioned in schedule are **super** arbitrary
-
-:::
 
 ## R basics
 
@@ -291,12 +281,12 @@ F
 :::{.fragment .column width="55%"}
 
 * [**Data:**]{style="color:#95b540;"} Input data
-* [**Geom:**]{style="color:#95b540;"} A geometry representing data. *Points, Lines etc*
 * [**Aesthetics:**]{style="color:#95b540;"} Visual characteristics of the geometry. *Size, Color, Shape etc*
-* [**Scale:**]{style="color:#95b540;"} How visual characteristics are converted to display values
+* [**Geom:**]{style="color:#95b540;"} A geometry representing data. *Points, Lines etc*
+* [**Facets:**]{style="color:#95b540;"} Split data into subsets
 * [**Statistics:**]{style="color:#95b540;"} Statistical transformations. *Counts, Means etc*
 * [**Coordinates:**]{style="color:#95b540;"} Numeric system to determine position of geometry. *Cartesian, Polar etc*
-* [**Facets:**]{style="color:#95b540;"} Split data into subsets
+* [**Scale:**]{style="color:#95b540;"} How visual characteristics are converted to display values
 
 :::
 ::::
