@@ -10,8 +10,8 @@ format: html
 
 ::: {.callout-note} 
 
-* You can reach out to us ask for questions in our NBIS Drop-in every Tuesday at 1400. The info can be found [here](https://nbis.se/get-support/talk-to-us)
-* You can also ask question through our HackMD and please introduce yourself there as well. The link is [here](https://hackmd.io/BcwXnvdVS469hIHXnDSvJg?both)
+* You can reach out to us for questions in our NBIS Drop-in every Tuesday at 1400. [Drop-in info](https://nbis.se/get-support/talk-to-us)
+* You can also ask question through our HackMD and please introduce yourself there as well. [HackMD](https://hackmd.io/BcwXnvdVS469hIHXnDSvJg?both)
 
 :::
 
