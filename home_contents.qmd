@@ -10,8 +10,8 @@ format: html
 
 ::: {.callout-note} 
 
-The contents of this course are currently being generated. It will be updated here regularly until the course. 
-Please check the [**Schedule**](https://nbisweden.github.io/workshop-workshop-infravis/r-plots/home_schedule.html) for the proposed topics and updated materials.
+* You can reach out to us ask for questions in our NBIS Drop-in every Tuesday at 1400. The info can be found [here](https://nbis.se/get-support/talk-to-us)
+* You can also ask question through our HackMD and please introduce yourself there as well. The link is [here](https://hackmd.io/BcwXnvdVS469hIHXnDSvJg?both)
 
 :::
 
