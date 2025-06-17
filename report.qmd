@@ -54,7 +54,7 @@ link_data_center <- "https://www.scilifelab.se/data/"
  * The course was given by **`r params$staff_name`** together with **Katja Kozjek** and **Massimiliano Volpe**. 
  * The course was designed based on Workshop on [Advanced Data Visualization](https://nbisweden.github.io/workshop-data-visualization-r/2505/)
  * All the course materials specific to this can be found in this [GitHub repo](https://github.com/NBISweden/workshop-infravis/)
- * The course webpage can be found in this [GH page](https://github.com/NBISweden/workshop-infravis/)
+ * The course webpage can be found in this [GH page](https://nbisweden.github.io/workshop-infravis/r-plots/)
 
 # Practical information
 
