@@ -194,7 +194,18 @@ R -e "shiny::runApp('~/shinyapp')"
 
 . . .
 
-- From Rmd file using `rmarkdown::run()`
+```{bash}
+#| eval: false
+#| filename: Bash Terminal
+quarto serve document.qmd
+```
+
+```{r}
+#| eval: false
+#| filename: R Terminal
+library(quarto)
+quarto_serve("document.qmd")
+```
 
 
 ## {.center}
