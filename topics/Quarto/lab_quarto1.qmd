@@ -123,11 +123,11 @@ Markdown text is useful to introduce your content and explain your code.
 
 ## Text formatting
 
-This `*italic text*` becomes *italic text*.  
-This `**bold text**` becomes **bold text**. 
-Subscript written like this `H~2~O` renders as H~2~O.  
-Superscript written like this `2^10^` renders as 2^10^.
-This ``code`` format becomes `code`.
+This `*italic text*` becomes *italic text*. \
+This `**bold text**` becomes **bold text**. \
+Subscript written like this `H~2~O` renders as H~2~O. \
+Superscript written like this `2^10^` renders as 2^10^. \
+This `` `code` `` format becomes `code`.
 
 ## Headings
 
@@ -159,16 +159,14 @@ This ``code`` format becomes `code`.
     -   Item 2b
 
 ```
-1.  Numbered list item 1
+1.  Item 1: Numbered list item 1
 
-2.  Item 2.
-    The numbers are incremented automatically in the output.
+2.  Item 2: The numbers are incremented automatically in the output.
 ```
 
-1.  Numbered list item 1
+1.  Item 1: Numbered list item 1
 
-2.  Item 2.
-    The numbers are incremented automatically in the output.
+2.  Item 2: The numbers are incremented automatically in the output.
 
 ## Links
 
