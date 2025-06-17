@@ -194,6 +194,10 @@ R -e "shiny::runApp('~/shinyapp')"
 
 . . .
 
+- Executing from a quarto document
+
+:::{.small}
+
 ```{bash}
 #| eval: false
 #| filename: Bash Terminal
@@ -206,7 +210,7 @@ quarto serve document.qmd
 library(quarto)
 quarto_serve("document.qmd")
 ```
-
+:::
 
 ## {.center}
 
