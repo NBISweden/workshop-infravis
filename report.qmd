@@ -1,0 +1,113 @@
+---
+params:
+    project_title: "InfraVis internal training Data visualisation in R"
+    redmine_issue: "#8131"
+    requester_name: "Nikita Singh"
+    requester_mail: "nikita.singh@it.uu.se"
+    pi_name: "Ingela Nyström"
+    pi_mail: "ingela.nystrom@it.uu.se"
+    organisation: "Uppsala Universitet"
+    staff_name: "Lokeshwaran Manoharan"
+    staff_mail: "lokeshwaran.manoharan@nbis.se"
+title: "`r params$project_title`"
+author: "`r params$staff_name`"
+date: last-modified
+abstract: |
+    This is the final report of the NBIS support project "`r params$redmine_issue`".
+format:
+  nbis-html: default
+---
+
+```{r}
+#| label: report varibales 
+#| warning: false
+#| message: false
+#| echo: false
+
+affil <- paste("National Bioinformatics Infrastructure Sweden, Science for",
+    "Life Laboratory, Department of Laboratory Medicine, Lund University")
+link_support <- "https://nbis.se/services/bioinformatics"
+link_uppmax <- paste("https://www.uppmax.uu.se/support/faq/",
+    "general-miscellaneous-faq/acknowledging-uppmax-and-naiss/")
+link_authorship <- "http://www.icmje.org/recommendations/"
+link_agreement <- "https://nbis.se/uploads/nbis_support_useragreement_f2c52d955b.pdf"
+link_acknowledge <- paste("https://ngisweden.scilifelab.se/resources/",
+                          "getting-started-at-ngi/")
+link_sensitive_data <- "https://data-guidelines.scilifelab.se/topics/sharing-human-data/"
+link_data_center <- "https://www.scilifelab.se/data/"
+```
+
+# Project information
+
+ * Redmine issue: **`r params$redmine_issue`**
+ * NBIS staff: **`r params$staff_name`**
+ * Request by: **`r params$requester_name`**
+ * Principal investigator: **`r params$pi_name`**
+ * Organisation: **`r params$organisation`**
+
+# Work log
+*A brief summary of the project's key points.*
+
+ * **2025-06-16:** Course day 1 from 1300 to 1700
+ * **2025-06-17:** Course day 2 from 1300 to 1700
+
+ * The course was given by **`r params$staff_name`** together with **Katja Kozjek** and **Massimiliano Volpe**. 
+ * The course was designed based on Workshop on [Advanced Data Visualization](https://nbisweden.github.io/workshop-data-visualization-r/2505/)
+ * All the course materials specific to this can be found in this [GitHub repo](https://github.com/NBISweden/workshop-infravis/)
+ * The course webpage can be found in this [GH page](https://github.com/NBISweden/workshop-infravis/)
+
+# Practical information
+
+## Data responsibilities
+Unfortunately, NBIS does not have resources to keep any files associated with
+the support request; we kindly suggest that you safely store the results
+delivered by us. In addition, we kindly ask that you remove the files from
+UPPMAX/UPPNEX. The main storage at UPPNEX is optimized for high-speed and
+parallel access, which makes it expensive and not the right place for long-term
+archiving. Please be considerate of your fellow researchers by not taking up
+this expensive space.
+
+The responsibility for data archiving lies with universities and we recommend
+asking your local IT for support with long-term data storage. The
+[Data Center](`r link_data_center`) at SciLifeLab may also be
+of help with discussing other options.
+
+Please note that special considerations may apply to human-derived, sensitive
+personal data. This should be handled according to specific laws and
+regulations as outlined at the [SciLifeLab website](`r link_sensitive_data`).
+
+## Acknowledgements
+If you are presenting the results in a paper, at a workshop or at a conference,
+we kindly remind you to acknowledge us according to the signed
+[NBIS User Agreement](`r link_agreement`):
+
+Please acknowledge NBIS like so: *Support by NBIS (National
+Bioinformatics Infrastructure Sweden) is gratefully acknowledged.*
+
+NBIS staff should also be included as co-authors if the
+support work leads to a publication and when this is merited in accordance to
+the ethical recommendations for authorship, *i.e.* the [ICMJE
+recommendations](`r link_authorship`). If applicable, please include
+*`r params$staff_name`, `r affil`* as co-author. 
+
+In addition, Uppmax kindly asks you to [acknowledge UPPMAX and
+NAISS](`r link_uppmax`). If applicable, please add: *The computations/
+data handling/[SIMILAR] were/was enabled by resources in project 
+`r params$uppmax_project` provided by the National Academic Infrastructure for 
+Supercomputing in Sweden (NAISS) at UPPMAX, funded by the Swedish Research 
+Council through grant agreement no. 2022-06725*
+
+In any and all publications based on data from NGI Sweden, the authors
+must [acknowledge SciLifeLab, NGI, VR and UPPMAX](`r link_acknowledge`).
+
+## Closing procedures
+You should soon be contacted by one of our managers with a request to close down 
+the project in our internal system and for invoicing matters. If we do not hear 
+from you within **30 days** the project will be automatically closed and invoice
+sent. Again, we would like to remind you about data responsibility and
+acknowledgements, see the sections on data responsibilities and
+acknowledgments.
+
+You are naturally more than welcome to come back to us with further data
+analysis request at any time via [the support form](`r link_support`). Thank
+you for using NBIS, we wish you the best of luck with your future research!
